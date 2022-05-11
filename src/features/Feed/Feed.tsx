@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native'
-import { typography } from '@src/styles'
-import Card from '@src/components/Card'
-import { getFeed } from './api'
-import type { ArticleItem } from './models'
+import { StyleSheet } from 'react-native'
+import ArticleCard from '@src/components/ArticleCard'
+import { Article } from '@src/models/article'
+import { getFeed } from '@src/services/articleService'
 
 export default function Feed() {
-  const [feed, setFeed] = useState<ArticleItem[]>([])
+  const [feed, setFeed] = useState<Article[]>([])
 
   useEffect(() => {
     ;(async () => {
@@ -18,55 +17,12 @@ export default function Feed() {
     })()
   }, [])
 
-  const onPress = async (item: ArticleItem) => {
-    const supported = await Linking.canOpenURL(item.uri)
-
-    if (supported) {
-      Linking.openURL(item.uri)
-    } else {
-      console.log("Don't know how to open URI: " + item.uri)
-    }
-  }
-
   return (
     <>
-      {feed.map(item => (
-        <View key={item.id} style={styles.container}>
-          <Card>
-            <Pressable onPress={() => onPress(item)}>
-              {item.thumbnail && (
-                <Image
-                  style={styles.cardImage}
-                  source={{ uri: item.thumbnail }}
-                  resizeMode="cover"
-                />
-              )}
-              <View style={styles.inner}>
-                <Text style={{ ...styles.cardTitle, ...typography.subtitle }}>
-                  {item.title}
-                </Text>
-                <Text style={typography.label}>{item.author}</Text>
-              </View>
-            </Pressable>
-          </Card>
-        </View>
-      ))}
+      {feed.map(article => <ArticleCard key={article.id} article={article} />)}
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  cardImage: {
-    height: 125,
-  },
-  inner: {
-    padding: 16,
-  },
-  cardTitle: {
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  container: {
-    marginVertical: 8,
-  },
 })
