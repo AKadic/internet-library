@@ -1,0 +1,2 @@
+export const spotifyFeed = "https://cors-anywhere.herokuapp.com/https://engineering.atspotify.com/feed"
+export const stackOverflowFeed = "https://cors-anywhere.herokuapp.com/https://stackoverflow.blog/feed"
