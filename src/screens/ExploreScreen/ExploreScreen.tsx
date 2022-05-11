@@ -1,15 +1,15 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import Screen from '@src/components/Screen'
+import Explore from '@src/features/Explore'
 
 export default function ExploreScreen() {
   return (
-    <Screen>
-      <View style={styles.container}></View>
-    </Screen>
+    <ScrollView>
+      <Screen>
+        <Explore />
+      </Screen>
+    </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-  },
-})
+const styles = StyleSheet.create({})
