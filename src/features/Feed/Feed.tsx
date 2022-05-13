@@ -19,10 +19,11 @@ export default function Feed() {
 
   return (
     <>
-      {feed.map(article => <ArticleCard key={article.id} article={article} />)}
+      {feed.map(article => (
+        <ArticleCard key={article.id} article={article} />
+      ))}
     </>
   )
 }
 
-const styles = StyleSheet.create({
-})
+const styles = StyleSheet.create({})
