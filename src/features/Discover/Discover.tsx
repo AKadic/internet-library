@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { typography } from '@src/styles'
 import ArticleCard from '@src/components/ArticleCard'
 import Divider from '@src/components/Divider'
 import type { RandomArticles } from '@src/models/article'
-import { getRandomArticles } from '@src/services/articleService'
+import { ArticleService } from '@src/services/articleService'
 
 export default function Discover() {
+  const articleService = useMemo(() => new ArticleService(), [])
   const [randomArticles, setRandomArticles] = useState<RandomArticles[]>()
 
   useEffect(() => {
     ;(async () => {
       try {
-        setRandomArticles(await getRandomArticles())
+        setRandomArticles(await articleService.getRandomArticles())
       } catch (e: any) {
         console.info(e)
       }
@@ -26,8 +27,8 @@ export default function Discover() {
           <Text style={typography.headline}>{category}</Text>
           <Divider />
           {articles.map((article, index) => (
-            <View style={styles.article}>
-              <ArticleCard key={article.id} article={article} />
+            <View key={article.id} style={styles.article}>
+              <ArticleCard article={article} />
             </View>
           ))}
         </View>
@@ -37,9 +38,7 @@ export default function Discover() {
 }
 
 const styles = StyleSheet.create({
-  article: {
-    paddingLeft: 8,
-  },
+  article: {},
   category: {
     marginVertical: 16,
   },

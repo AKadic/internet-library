@@ -1,83 +1,78 @@
-import { XMLParser } from 'fast-xml-parser'
-import { spotifyFeed, stackOverflowFeed } from '@src/urls'
+import {
+  spotifyFeed,
+  stackOverflowFeed,
+  techCrunchFeed,
+  technologyReviewFeed,
+  wiredFeed,
+} from '@src/urls'
 import type { Article, RandomArticles } from '@src/models/article'
+import { FetchRssFeed } from '@src/services/rssFeed'
+import { XmlService } from '@src/services/xmlService'
 
-export async function getRandomArticles(): Promise<RandomArticles[]> {
-  const responses = await Promise.all([
-    fetch(spotifyFeed),
-    fetch(stackOverflowFeed),
-  ])
+export class ArticleService {
+  rss = new FetchRssFeed()
+  xml = new XmlService()
 
-  if (responses.some(i => !i.ok)) {
-    const failedResponse = responses.find(i => !i.ok)!
+  async getRandomArticles(): Promise<RandomArticles[]> {
+    const [
+      spotifyFeedString,
+      stackOverflowFeedString,
+      techcrunchFeedString,
+      technologyReviewFeedString,
+      wiredFeedString,
+    ] = await this.rss.getMultiple([
+      spotifyFeed,
+      stackOverflowFeed,
+      techCrunchFeed,
+      technologyReviewFeed,
+      wiredFeed,
+    ])
 
-    throw Error(await failedResponse.text())
+    return [
+      {
+        category: 'Spotify',
+        articles: this.xml.parse(spotifyFeedString).slice(0, 5),
+      },
+      {
+        category: 'Stack Overflow',
+        articles: this.xml.parse(stackOverflowFeedString).slice(0, 5),
+      },
+      {
+        category: 'Tech Crunch',
+        articles: this.xml.parse(techcrunchFeedString).slice(0, 5),
+      },
+      {
+        category: 'Technology Review',
+        articles: this.xml.parse(technologyReviewFeedString).slice(0, 5),
+      },
+      {
+        category: 'Wired',
+        articles: this.xml.parse(wiredFeedString).slice(0, 5),
+      },
+    ]
   }
 
-  const [spotifyResponse, stackOverFlowResponse] = responses
+  async getFeed(): Promise<Article[]> {
+    const [
+      spotifyFeedString,
+      stackOverflowFeedString,
+      techcrunchFeedString,
+      technologyReviewFeedString,
+      wiredFeedString,
+    ] = await this.rss.getMultiple([
+      spotifyFeed,
+      stackOverflowFeed,
+      techCrunchFeed,
+      technologyReviewFeed,
+      wiredFeed,
+    ])
 
-  const [spotifyFeedString, stackOverFlowFeedString] = await Promise.all([
-    spotifyResponse.text(),
-    stackOverFlowResponse.text(),
-  ])
-
-  return [
-    {
-      category: 'Spotify',
-      articles: parse(spotifyFeedString).slice(0, 5),
-    },
-    {
-      category: 'Stack Overflow',
-      articles: parse(stackOverFlowFeedString).slice(0, 5),
-    },
-  ]
-}
-
-export async function getFeed(): Promise<Article[]> {
-  const responses = await Promise.all([
-    fetch(spotifyFeed),
-    fetch(stackOverflowFeed),
-  ])
-
-  if (responses.some(i => !i.ok)) {
-    const failedResponse = responses.find(i => !i.ok)!
-
-    throw Error(await failedResponse.text())
-  }
-
-  const [spotifyResponse, stackOverFlowResponse] = responses
-
-  const [spotifyFeedString, stackOverFlowFeedString] = await Promise.all([
-    spotifyResponse.text(),
-    stackOverFlowResponse.text(),
-  ])
-
-  return [...parse(spotifyFeedString), ...parse(stackOverFlowFeedString)].sort(
-    () => Math.random() - 0.5,
-  )
-}
-
-function parse(xml: string): Article[] {
-  const xmlParser = new XMLParser({
-    ignoreAttributes: false,
-  })
-  const parsed = xmlParser.parse(xml)
-
-  return rssToArticleItems(parsed.rss.channel.item)
-}
-
-function rssToArticleItems(data: any[]): Article[] {
-  return data.map(i => rssToArticleItem(i))
-}
-
-function rssToArticleItem(data: any): Article {
-  return {
-    id: data.guid?.['#text'],
-    author: data['dc:creator'],
-    publishDate: data.pubDate,
-    title: data.title,
-    description: data.description,
-    uri: data.link,
-    thumbnail: data.enclosure?.['@_url'],
+    return [
+      ...this.xml.parse(spotifyFeedString),
+      ...this.xml.parse(stackOverflowFeedString),
+      ...this.xml.parse(techcrunchFeedString),
+      ...this.xml.parse(technologyReviewFeedString),
+      ...this.xml.parse(wiredFeedString),
+    ].sort(() => Math.random() - 0.5)
   }
 }
