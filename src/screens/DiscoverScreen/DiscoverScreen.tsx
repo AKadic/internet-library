@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import Screen from '@src/components/Screen'
-import Explore from '@src/features/Explore'
+import Discover from '@src/features/Discover'
 
-export default function ExploreScreen() {
+export default function DiscoverScreen() {
   return (
     <ScrollView>
       <Screen>
-        <Explore />
+        <Discover />
       </Screen>
     </ScrollView>
   )

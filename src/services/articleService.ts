@@ -52,7 +52,9 @@ export async function getFeed(): Promise<Article[]> {
     stackOverFlowResponse.text(),
   ])
 
-  return [...parse(spotifyFeedString), ...parse(stackOverFlowFeedString)].sort(() => Math.random() - 0.5)
+  return [...parse(spotifyFeedString), ...parse(stackOverFlowFeedString)].sort(
+    () => Math.random() - 0.5,
+  )
 }
 
 function parse(xml: string): Article[] {
