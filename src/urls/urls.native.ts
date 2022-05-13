@@ -1,2 +1,5 @@
-export const spotifyFeed = "https://engineering.atspotify.com/feed"
-export const stackOverflowFeed = "https://stackoverflow.blog/feed"
+export const spotifyFeed = 'https://engineering.atspotify.com/feed'
+export const stackOverflowFeed = 'https://stackoverflow.blog/feed'
+export const techCrunchFeed = 'https://techcrunch.com/feed'
+export const technologyReviewFeed = 'https://www.technologyreview.com/feed'
+export const wiredFeed = 'https://www.wired.com/feed/rss'

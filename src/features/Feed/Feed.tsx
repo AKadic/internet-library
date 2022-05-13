@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import ArticleCard from '@src/components/ArticleCard'
 import { Article } from '@src/models/article'
-import { getFeed } from '@src/services/articleService'
+import { ArticleService } from '@src/services/articleService'
 
 export default function Feed() {
+  const articleService = useMemo(() => new ArticleService(), [])
   const [feed, setFeed] = useState<Article[]>([])
 
   useEffect(() => {
     ;(async () => {
       try {
-        setFeed(await getFeed())
+        setFeed(await articleService.getFeed())
       } catch (e: any) {
         console.info(e)
       }
