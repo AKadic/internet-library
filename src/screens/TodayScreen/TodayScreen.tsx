@@ -1,10 +1,10 @@
-import { StyleSheet, ScrollView } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import Screen from '@src/components/Screen'
 import Feed from '@src/features/Feed'
 
 export default function TodayScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       <Screen>
         <Feed />
       </Screen>
@@ -12,6 +12,4 @@ export default function TodayScreen() {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {},
-})
+const styles = StyleSheet.create({})

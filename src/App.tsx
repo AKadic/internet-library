@@ -17,7 +17,6 @@ export default function App() {
     <NavigationContainer>
       <SafeAreaProvider>
         <Tab.Navigator
-          screenOptions={{ tabBarStyle: { marginBottom: 8, paddingTop: 8 } }}
         >
           <Tab.Screen
             name="Today"
@@ -45,7 +44,7 @@ export default function App() {
               ),
             }}
           />
-          {/* <Tab.Screen
+          <Tab.Screen
             name="Search"
             component={SearchScreen}
             options={{
@@ -53,7 +52,7 @@ export default function App() {
                 <Ionicons name="search" size={size} color={color(focused)} />
               ),
             }}
-          /> */}
+          />
         </Tab.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>
