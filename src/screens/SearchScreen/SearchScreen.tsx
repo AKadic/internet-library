@@ -9,9 +9,6 @@ export default function SearchScreen() {
 
   return (
     <Screen>
-      <View>
-
-      </View>
       <TextInput
         style={styles.input}
         onChangeText={setValue}

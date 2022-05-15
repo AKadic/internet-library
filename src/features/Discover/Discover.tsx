@@ -1,19 +1,23 @@
+import { useNavigation } from '@react-navigation/native'
 import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { typography } from '@src/styles'
 import ArticleCard from '@src/components/ArticleCard'
 import Divider from '@src/components/Divider'
-import type { RandomArticles } from '@src/models/article'
-import { ArticleService } from '@src/services/articleService'
+import type { ArticleList } from '@src/models/article'
+import { TagService } from '@src/services/tagService'
+import { DiscoverScreenProps } from '@src/screens/DiscoverScreen/discoverScreenProps'
 
 export default function Discover() {
-  const articleService = useMemo(() => new ArticleService(), [])
-  const [randomArticles, setRandomArticles] = useState<RandomArticles[]>()
+  const navigation = useNavigation<DiscoverScreenProps>()
+  const tagService = useMemo(() => new TagService(), [])
+  const [randomArticles, setRandomArticles] = useState<ArticleList[]>()
 
   useEffect(() => {
     ;(async () => {
       try {
-        setRandomArticles(await articleService.getRandomArticles())
+        setRandomArticles(await tagService.getRandomArticles())
       } catch (e: any) {
         console.info(e)
       }
@@ -21,25 +25,30 @@ export default function Discover() {
   }, [])
 
   return (
-    <View>
-      {randomArticles?.map(({ category, articles }) => (
-        <View key={category} style={styles.category}>
-          <Text style={typography.headline}>{category}</Text>
+    <SafeAreaView>
+      {randomArticles?.map(({ tag, articles }) => (
+        <View key={tag} style={styles.tag}>
+          <Text
+            onPress={() => navigation.navigate('Tag', { tag })}
+            style={typography.headline}
+          >
+            {tag}
+          </Text>
           <Divider />
-          {articles.map((article, index) => (
+          {articles.map(article => (
             <View key={article.id} style={styles.article}>
               <ArticleCard article={article} />
             </View>
           ))}
         </View>
       ))}
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   article: {},
-  category: {
+  tag: {
     marginVertical: 16,
   },
 })

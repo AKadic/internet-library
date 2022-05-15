@@ -1,10 +1,10 @@
-export const spotifyFeed =
+export const spotifyFeedUrl =
   'https://cors-anywhere.herokuapp.com/https://engineering.atspotify.com/feed'
-export const stackOverflowFeed =
+export const stackOverflowFeedUrl =
   'https://cors-anywhere.herokuapp.com/https://stackoverflow.blog/feed'
-export const techCrunchFeed =
+export const techCrunchFeedUrl =
   'https://cors-anywhere.herokuapp.com/https://techcrunch.com/feed'
-export const technologyReviewFeed =
+export const technologyReviewFeedUrl =
   'https://cors-anywhere.herokuapp.com/https://www.technologyreview.com/feed'
-export const wiredFeed =
+export const wiredFeedUrl =
   'https://cors-anywhere.herokuapp.com/https://www.wired.com/feed/rss'

@@ -2,16 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import ArticleCard from '@src/components/ArticleCard'
 import { Article } from '@src/models/article'
-import { ArticleService } from '@src/services/articleService'
+import { TagService } from '@src/services/tagService'
 
 export default function Feed() {
-  const articleService = useMemo(() => new ArticleService(), [])
+  const tagService = useMemo(() => new TagService(), [])
   const [feed, setFeed] = useState<Article[]>([])
 
   useEffect(() => {
     ;(async () => {
       try {
-        setFeed(await articleService.getFeed())
+        setFeed((await tagService.getFeed()).flatMap(list => list.articles))
       } catch (e: any) {
         console.info(e)
       }
