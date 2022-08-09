@@ -15,13 +15,13 @@ export class ArticleService {
 
   async getRandomArticles(): Promise<RandomArticles[]> {
     const [
-      spotifyFeedString,
+      // spotifyFeedString,
       stackOverflowFeedString,
       techcrunchFeedString,
       technologyReviewFeedString,
       wiredFeedString,
-    ] = await this.rss.getMultiple([
-      spotifyFeed,
+    ] = await this.rss.getMany([
+      // spotifyFeed,
       stackOverflowFeed,
       techCrunchFeed,
       technologyReviewFeed,
@@ -29,10 +29,10 @@ export class ArticleService {
     ])
 
     return [
-      {
-        category: 'Spotify',
-        articles: this.xml.parse(spotifyFeedString).slice(0, 5),
-      },
+      // {
+      //   category: 'Spotify',
+      //   articles: this.xml.parse(spotifyFeedString).slice(0, 5),
+      // },
       {
         category: 'Stack Overflow',
         articles: this.xml.parse(stackOverflowFeedString).slice(0, 5),
@@ -54,13 +54,13 @@ export class ArticleService {
 
   async getFeed(): Promise<Article[]> {
     const [
-      spotifyFeedString,
+      // spotifyFeedString,
       stackOverflowFeedString,
       techcrunchFeedString,
       technologyReviewFeedString,
       wiredFeedString,
-    ] = await this.rss.getMultiple([
-      spotifyFeed,
+    ] = await this.rss.getMany([
+      // spotifyFeed,
       stackOverflowFeed,
       techCrunchFeed,
       technologyReviewFeed,
@@ -68,7 +68,7 @@ export class ArticleService {
     ])
 
     return [
-      ...this.xml.parse(spotifyFeedString),
+      // ...this.xml.parse(spotifyFeedString),
       ...this.xml.parse(stackOverflowFeedString),
       ...this.xml.parse(techcrunchFeedString),
       ...this.xml.parse(technologyReviewFeedString),

@@ -1,6 +1,6 @@
 export interface RssFeed {
   get(url: string): Promise<string>
-  getMultiple(urls: string[]): Promise<string[]>
+  getMany(urls: string[]): Promise<string[]>
 }
 
 export class FetchRssFeed implements RssFeed {
@@ -15,7 +15,7 @@ export class FetchRssFeed implements RssFeed {
     return text
   }
 
-  async getMultiple(urls: string[]): Promise<string[]> {
+  async getMany(urls: string[]): Promise<string[]> {
     const responses = await Promise.all(urls.map(i => fetch(i)))
 
     if (responses.some(i => !i.ok)) {
