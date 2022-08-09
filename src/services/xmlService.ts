@@ -2,11 +2,12 @@ import { XMLParser } from 'fast-xml-parser'
 import type { Article } from '@src/models/article'
 
 export class XmlService {
+  xmlParser = new XMLParser({
+    ignoreAttributes: false,
+  })
+
   parse(xml: string): Article[] {
-    const xmlParser = new XMLParser({
-      ignoreAttributes: false,
-    })
-    const parsed = xmlParser.parse(xml)
+    const parsed = this.xmlParser.parse(xml)
 
     return this.rssToArticleItems(parsed.rss.channel.item)
   }

@@ -1,3 +1,5 @@
+import { Tag } from "./tag"
+
 export interface Article {
   id: string
   author: string
@@ -8,7 +10,7 @@ export interface Article {
   thumbnail?: string
 }
 
-export interface RandomArticles {
-  category: string
+export interface ArticleList {
+  tag: Tag
   articles: Article[]
 }

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: '#FDFDFD',
     paddingHorizontal: 32,
-    paddingVertical: 16,
     borderRadius: 8,
     overflow: 'hidden',
   },
