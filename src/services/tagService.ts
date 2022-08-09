@@ -17,7 +17,7 @@ export class TagService {
   }
 
   async getRandomArticles(): Promise<ArticleList[]> {
-    const tagFeeds = await this.rss.getMultiple(this.tagUrlValues)
+    const tagFeeds = await this.rss.getMany(this.tagUrlValues)
 
     return this.tagUrlKeys.map((tag, index) => ({
       tag,
@@ -26,7 +26,7 @@ export class TagService {
   }
 
   async getFeed(): Promise<ArticleList[]> {
-    const tagFeeds = await this.rss.getMultiple(this.tagUrlValues)
+    const tagFeeds = await this.rss.getMany(this.tagUrlValues)
 
     return this.tagUrlKeys.map((tag, index) => ({
       tag,

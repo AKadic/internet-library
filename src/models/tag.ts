@@ -7,7 +7,7 @@ import {
 } from '@src/urls'
 
 export const tagUrls = {
-  Spotify: spotifyFeedUrl,
+  // Spotify: spotifyFeedUrl,
   'Stack Overflow': stackOverflowFeedUrl,
   'Tech Crunch': techCrunchFeedUrl,
   'Technology Review': technologyReviewFeedUrl,

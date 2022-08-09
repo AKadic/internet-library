@@ -1,7 +1,7 @@
 import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native'
 import { typography } from '@src/styles'
 import Card from '@src/components/Card'
-import type { Article } from "@src/models/article"
+import type { Article } from '@src/models/article'
 import type { ArticleCardProps } from './articleCardProps'
 
 export default function ArticleCard({ article }: ArticleCardProps) {

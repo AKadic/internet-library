@@ -11,15 +11,19 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
   const color = (focused: boolean) => (focused ? '#007AFF' : '#8E8E8F')
-  const size = 24
+  const size = 18
 
   return (
     <NavigationContainer>
       <SafeAreaProvider>
         <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: { paddingTop: 8, paddingBottom: 8 },
+          }}
         >
           <Tab.Screen
-            name="Today"
+            name="Home"
             component={TodayScreen}
             options={{
               tabBarIcon: ({ focused }) => (

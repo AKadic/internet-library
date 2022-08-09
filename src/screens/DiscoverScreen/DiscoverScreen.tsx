@@ -1,4 +1,4 @@
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useCallback } from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 import Screen from '@src/components/Screen'
@@ -6,7 +6,7 @@ import Discover from '@src/features/Discover'
 import TagFeedScreen from '@src/screens/TagFeedScreen'
 import type { DiscoverScreenProps } from './discoverScreenProps'
 
-const Stack = createStackNavigator()
+const Stack = createNativeStackNavigator()
 
 export default function DiscoverScreen({}: DiscoverScreenProps) {
   const HomeScreen = useCallback(
